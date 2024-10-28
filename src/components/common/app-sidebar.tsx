@@ -3,6 +3,7 @@ import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -26,7 +27,7 @@ const items = [
   },
   {
     title: "Calendar",
-    url: "/",
+    url: "/admin/posts",
     icon: Calendar,
   },
   {
@@ -66,6 +67,8 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+      </SidebarFooter>
     </Sidebar>
   )
 }

@@ -7,10 +7,57 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  BASIC
+  ADMIN
+  EDITOR
+}
+
 model Todo {
   id        String   @id @default(uuid())
   title     String
   completed Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model User {
+  id             String          @id @default(uuid())
+  age            Int?
+  name           String?
+  email          String          @unique
+  writtenPosts   Post[]          @relation("WrittenPosts")
+  favoritePosts  Post[]          @relation("FavoritePosts")
+  userPreference UserPreference?
+  role           Role            @default(BASIC)
+  isAdmin        Boolean         @default(false)
+
+  @@index([email])
+}
+
+model UserPreference {
+  id           String  @id @default(uuid())
+  emailUpdates Boolean
+  user         User    @relation(fields: [userId], references: [id])
+  userId       String  @unique
+}
+
+model Post {
+  id            String     @id @default(uuid())
+  title         String
+  content       String
+  averageRating Float      @default(0)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  author        User       @relation("WrittenPosts", fields: [authorId], references: [id])
+  authorId      String
+  favoritedBy   User?      @relation("FavoritePosts", fields: [favouriteId], references: [id])
+  favouriteId   String?
+  categories    Category[]
+}
+
+model Category {
+  id    String @id @default(uuid())
+  name  String @unique
+  posts Post[]
 }

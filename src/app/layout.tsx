@@ -4,6 +4,8 @@ import "./globals.css";
 import TanstackProvider from "@/providers/tanstack-provider";
 import { Toaster } from "@/components/ui/toaster";
 
+import { RegisterLink, LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -31,6 +33,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <TanstackProvider>
+          <LoginLink>Sign in</LoginLink>
+          <RegisterLink>Sign up</RegisterLink>
           {children}
           <Toaster />
         </TanstackProvider>
